@@ -12,6 +12,7 @@ using System.Collections;
 
 public class ScalePulse : MonoBehaviour
 {
+    public string butName;
     public float pulseTime = 0.25f;
     public Vector3 scaleFactor = new Vector3(0.15f, 0.15f, 1);
     public Vector3 scaleAdd;
@@ -19,6 +20,7 @@ public class ScalePulse : MonoBehaviour
     public float startDelay = 2;
     public bool pulseRepeat = false;
     public float pulseInterval = 3;
+
 
     private Vector3 originalScale;
     private float pulseClock = 0;   
@@ -54,6 +56,7 @@ public class ScalePulse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      
         if(pulseSwitch)
         { 
             if (pulseClock < timeLimit)

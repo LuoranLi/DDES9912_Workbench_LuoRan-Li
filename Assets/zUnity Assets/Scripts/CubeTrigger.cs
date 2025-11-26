@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CubeTrigger : MonoBehaviour
 {
+    public List<GameCtrl> TheGanes;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,17 +14,31 @@ public class CubeTrigger : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
-
-        if (GameCtrl.Thegames.index != 0)
+       
+        if (TheGanes[0].index != 0|| TheGanes[1].index != 0)
         {
             return;
         }
-
-        if (other.gameObject.GetComponent<Rigidbody>())
+        switch (gameObject.tag)
         {
-            other.gameObject.GetComponent<Rigidbody>().useGravity = false;
+
+            case "gameC1":
+                if (other.gameObject.GetComponent<Rigidbody>())
+                {
+                    other.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                }
+                other.gameObject.transform.parent = TheGanes[0].GameObj;
+                TheGanes[0].index++;
+                break;
+            case "gameC2":
+                if (other.gameObject.GetComponent<Rigidbody>())
+                {
+                    other.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                }
+                other.gameObject.transform.parent = TheGanes[1].GameObj;
+                TheGanes[1].index++;
+                break;
         }
-        other.gameObject.transform.parent = GameCtrl.Thegames.GameObj;
-        GameCtrl.Thegames.index++;
+                 other.gameObject.GetComponent<Rigidbody>().Sleep();
     }
 }

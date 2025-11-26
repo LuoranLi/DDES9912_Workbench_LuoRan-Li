@@ -6,8 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class GameCtrl : MonoBehaviour
 {
-    private static GameCtrl theGames;
-    public static GameCtrl Thegames { get { return theGames; } set { theGames = value; } }
+  
 
 
     [SerializeField] Transform[] ropeSegments; 
@@ -40,10 +39,7 @@ public class GameCtrl : MonoBehaviour
     private bool isHolding = false;
     private string ButtonName;
 
-    private void Awake()
-    {
-        theGames = this;
-    }
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -86,7 +82,7 @@ public class GameCtrl : MonoBehaviour
         }
     }
   
-    private void ObjMove(string name)
+    public void ObjMove(string name)
     {
       
         
@@ -112,10 +108,13 @@ public class GameCtrl : MonoBehaviour
 
             }
             float currentY = Mathf.Lerp(GameObj.transform.position.y, targetY, smoothFactor / Time.deltaTime);
-             if (name != "Right" || name != "Left")
-            GameObj.transform.position = new Vector3(GameObj.transform.position.x, Mathf.Clamp(currentY, -2.8f, 1.2f), GameObj.transform.position.z
 
-            );
+        //  Debug.Log(currentY);
+        if (name != "Right" || name != "Left")
+         
+            GameObj.transform.position = new Vector3(GameObj.transform.position.x, Mathf.Clamp(currentY, -10f, 3.8f), GameObj.transform.position.z
+              
+            ); 
         
        
           
@@ -123,10 +122,16 @@ public class GameCtrl : MonoBehaviour
        
 
     }
-    private void DownObj()
+    public void DownObj()
     {
+        if (GameObj.transform.childCount<=0)
+        {
+            return;
+        }
+        GameObj.transform.GetChild(0).GetComponent<Rigidbody>().WakeUp();
         GameObj.transform.GetChild(0).GetComponent<Rigidbody>().useGravity = true;
-        GameObj.transform.DetachChildren();
+      
+       GameObj.transform.DetachChildren();
        index = 0;
     }
    
