@@ -47,7 +47,7 @@ public class GameCtrl : MonoBehaviour
         lineRenderer.startWidth = startWidth;
         lineRenderer.endWidth = endWidth;
 
-        Downobj.onClick.AddListener(DownObj);
+      //  Downobj.onClick.AddListener(DownObj);
 
         for (int i = 0; i < trigger.Count; i++)
         {
@@ -110,16 +110,25 @@ public class GameCtrl : MonoBehaviour
             float currentY = Mathf.Lerp(GameObj.transform.position.y, targetY, smoothFactor / Time.deltaTime);
 
         //  Debug.Log(currentY);
-        if (name != "Right" || name != "Left")
-         
+        if (name == "Up" || name == "Down")
+        {
             GameObj.transform.position = new Vector3(GameObj.transform.position.x, Mathf.Clamp(currentY, -10f, 3.8f), GameObj.transform.position.z
-              
-            ); 
-        
-       
+
+          );
+            GameMoveCtrl.Thegames.AudioPlay("绳索");
+           
+        }
+         
           
-        
-       
+
+        if (name == "Right" || name == "Left")
+        {
+            GameMoveCtrl.Thegames.AudioPlay("起重机");
+        }
+      
+
+
+
 
     }
     public void DownObj()
@@ -130,8 +139,8 @@ public class GameCtrl : MonoBehaviour
         }
         GameObj.transform.GetChild(0).GetComponent<Rigidbody>().WakeUp();
         GameObj.transform.GetChild(0).GetComponent<Rigidbody>().useGravity = true;
-      
-       GameObj.transform.DetachChildren();
+        GameMoveCtrl.Thegames.AudioPlay("解除吸附");
+        GameObj.transform.DetachChildren();
        index = 0;
     }
    

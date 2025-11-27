@@ -19,7 +19,8 @@ public class CameraRay : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            PlayerMove.Instance.IsMove = true;
+            //   PlayerMove.Instance.IsMove = true;
+            GameMoveCtrl.Thegames.AudioStop();
         }
             if (Input.GetMouseButton(0))
         {

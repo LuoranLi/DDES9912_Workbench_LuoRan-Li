@@ -8,7 +8,8 @@ public class GameMoveCtrl : MonoBehaviour
     public static GameMoveCtrl Thegames { get { return theGames; } set { theGames = value; } }
 
     [SerializeField] List<GameCtrl> Thagame;
-
+    [SerializeField] AudioSource TheAudioSou;
+    [SerializeField] List<AudioClip> TheAudioClip;
     [SerializeField] GameObject TheCar;
     [SerializeField] float MoveSpeed = 5f;
     [SerializeField] bool UseLocalDirection = true;
@@ -26,7 +27,7 @@ public class GameMoveCtrl : MonoBehaviour
     {
 
         //  Debug.Log(butname);
-        PlayerMove.Instance.IsMove = false;
+        //PlayerMove.Instance.IsMove = false;
         switch (butname)
         {
             case "Up":
@@ -36,6 +37,27 @@ public class GameMoveCtrl : MonoBehaviour
                 MoveBackward();
                 break;
         }
+        AudioPlay("小车");
+    }
+    public void AudioPlay(string Name)
+    {
+        if (TheAudioSou.isPlaying) return;
+
+        for (int i = 0; i < TheAudioClip.Count; i++)
+        {
+            if (TheAudioClip[i].name== Name)
+            {
+                TheAudioSou.clip = TheAudioClip[i];
+                TheAudioSou.Play();
+                return;
+            }
+        }
+
+    }
+    public void AudioStop()
+    {
+        if (!TheAudioSou.isPlaying) return;
+        TheAudioSou.Stop();
     }
     public void MachineTags(string gametag,string butname)
     {
